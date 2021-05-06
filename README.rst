@@ -22,6 +22,15 @@ For now this is a prototype to explore the possibility of creating self-containe
 * Free software: MIT license
 * Documentation: https://bids-statsmodels-design-synthesizer.readthedocs.io.
 
+Developer setup
+--------
+While this tool attempts to have no dependencies, the development dependencies for now can be installed with:
+
+```
+conda create -n bids-stats-synth python=3
+conda activate bids-stats-synth
+pip install -r requirements_dev.txt
+```
 
 Features
 --------
