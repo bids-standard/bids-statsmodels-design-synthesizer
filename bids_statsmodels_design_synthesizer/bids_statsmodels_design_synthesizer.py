@@ -9,8 +9,7 @@ def main():
     args = parser.parse_args()
 
     print("Arguments: " + str(args._))
-    print("Replace this message by putting your code into "
-          "bids_statsmodels_design_synthesizer.cli.main")
+
     return 0
 
 
