@@ -35,6 +35,7 @@ While this tool attempts to have no dependencies, the development dependencies f
    pip install -r requirements_dev.txt
    pip install -e .
    
+   mkdir tests/data
    cd tests/data
    datalad install ///openneuro/ds000003
    mkdir ds000003/models
