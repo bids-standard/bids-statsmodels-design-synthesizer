@@ -26,17 +26,17 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
     description="For now this is a prototype to explore the possibility of creating self-contained tool to perform the data aggregation necessary to jump from BIDS events.tsv files/model.json/other time series metadata to a design matrix for downstream implementers (or an appropriate sparse precursor of the design matrix).",
-    entry_points={
-        'console_scripts': [
-            'bids_statsmodels_design_synthesizer=bids_statsmodels_design_synthesizer.cli:main',
-        ],
-    },
+#    entry_points={
+#        'console_scripts': [
+#            'bids_statsmodels_design_synthesizer=bids_statsmodels_design_synthesizer.cli:main',
+#        ],
+#    },
+    scripts=["bids_statsmodels_design_synthesizer/bids_statsmodels_design_synthesizer.py"],
     install_requires=requirements,
     license="MIT license",
     long_description=readme + '\n\n' + history,
