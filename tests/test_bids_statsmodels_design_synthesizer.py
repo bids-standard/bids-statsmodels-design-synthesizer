@@ -18,11 +18,11 @@ def test_minimal_cli_functionality():
     model = "model-001_smdl.json"
     bids_dir = "data/..."
     events_file = "events.tsv"
-    output = sp.check_output([
+    output = sp.check_output(
         f"""
         bids_statsmodels_design_synthesizer.py
         --bids-dir {bids_dir}
         --model {model}
         --events-file {events_file}
-        """
-    ])
+        """.split()
+    )
