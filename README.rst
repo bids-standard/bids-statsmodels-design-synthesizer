@@ -18,6 +18,8 @@ bids-statsmodels-design-synthesizer
 
 For now this is a prototype to explore the possibility of creating self-contained tool to perform the data aggregation necessary to jump from BIDS events.tsv files/model.json/other time series metadata to a design matrix for downstream implementers (or an appropriate sparse precursor of the design matrix).
 
+Design notes: https://hackmd.io/QdwXR8XwRcmZaXp1zw6Ukg
+
 
 * Free software: MIT license
 * Documentation: https://bids-statsmodels-design-synthesizer.readthedocs.io.
@@ -26,7 +28,7 @@ Developer setup
 --------
 While this tool attempts to have no dependencies, the development dependencies for now can be installed with (very hacky for now):
 ::
-   # you mean need to brew install git-annex
+   # you may need to brew install git-annex
    conda create -c conda-forge -n bids-stats-synth python=3 datalad
    conda activate bids-stats-synth
    
