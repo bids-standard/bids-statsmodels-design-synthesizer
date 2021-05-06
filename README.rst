@@ -25,24 +25,22 @@ For now this is a prototype to explore the possibility of creating self-containe
 Developer setup
 --------
 While this tool attempts to have no dependencies, the development dependencies for now can be installed with (very hacky for now):
+::
+   # you mean need to brew install git-annex
+   conda create -c conda-forge -n bids-stats-synth python=3 datalad
+   conda activate bids-stats-synth
+   
+   pip install -r requirements_dev.txt
+   pip install -e .
+   
+   cd tests/data
+   datalad install ///openneuro/ds000003
+   mkdir ds000003/models
+   curl -fsSL https://raw.githubusercontent.com/poldracklab/fitlins/master/examples/models/ds000003/models/model-001_smdl.json > ds000003/models/model-001_smdl.json
+   
+   cd ..
+   pytest
 
-```
-# you mean need to brew install git-annex
-conda create -c conda-forge -n bids-stats-synth python=3 datalad
-conda activate bids-stats-synth
-
-pip install -r requirements_dev.txt
-pip install -e .
-
-cd tests/data
-datalad install ///openneuro/ds000003
-mkdir ds000003/models
-curl -fsSL https://raw.githubusercontent.com/poldracklab/fitlins/master/examples/models/ds000003/models/model-001_smdl.json > ds000003/models/model-001_smdl.json
-
-cd ..
-pytest
-
-```
 
 Features
 --------
