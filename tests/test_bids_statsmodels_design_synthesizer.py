@@ -32,10 +32,10 @@ def test_minimal_cli_functionality():
     cmd = (
         f"""
         bosh
-        {boutiques_dir}/bids-app-bids-statsmodels-design-synthesizer.json
-        -i {boutiques_dir}/invocation.json
-        -e
-        -d
+            exec
+            launch
+            {boutiques_dir}/bids-app-bids-statsmodels-design-synthesizer.json
+            {boutiques_dir}/invocation.json
         """
     )
     output = sp.check_output(cmd.split())

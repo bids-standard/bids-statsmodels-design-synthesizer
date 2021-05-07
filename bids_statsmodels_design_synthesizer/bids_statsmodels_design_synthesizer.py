@@ -1,6 +1,7 @@
+#! /usr/bin/env python
 import argparse
 import sys
-
+from boutiques.descriptor2func import function
 
 def main():
     """Console script for bids_statsmodels_design_synthesizer."""
