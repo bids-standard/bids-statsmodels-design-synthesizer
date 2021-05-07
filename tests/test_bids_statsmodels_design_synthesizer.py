@@ -10,7 +10,8 @@ from bids_statsmodels_design_synthesizer import bids_statsmodels_design_synthesi
 
 
 def test_cli_help():
-    output = sp.check_output(["bids_statsmodels_design_synthesizer.py","-h"])
+    with pytest.raises(sp.CalledProcessError):
+        output = sp.check_output(["bids_statsmodels_design_synthesizer.py","-h"])
     with pytest.raises(sp.CalledProcessError):
         output = sp.check_output(["bids_statsmodels_design_synthesizer.py","--non-existent"])
 
@@ -28,6 +29,17 @@ def test_minimal_cli_functionality():
     more specifically we want to reimplement this line
     https://github.com/bids-standard/pybids/blob/b6cd0f6787230ce976a374fbd5fce650865752a3/bids/analysis/analysis.py#L282
     """
+    cmd = f"""
+        bids_statsmodels_design_synthesizer.py
+            --bids-dir {bids_dir}
+            --model {model}
+            --events-file {events_file}
+         """.split()
+    output = sp.check_output(cmd.split())
+
+@pytest.mark.xfail(reason="Container not setup for boutiques yet")
+def test_minimal_cli_functionality_using_boutiques():
+    """ This might be nice to do. boutiques sets /bin/sh as the entrypoint for the contain to /bin/sh so this should be tweaked to have the conda env and the pip installed package working correctly"""
     boutiques_dir = Path(__file__).parent.parent / "boutiques"
     cmd = (
         f"""
