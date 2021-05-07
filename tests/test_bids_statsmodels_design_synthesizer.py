@@ -4,6 +4,7 @@
 
 import pytest
 import subprocess as sp
+from pathlib import Path
 
 from bids_statsmodels_design_synthesizer import bids_statsmodels_design_synthesizer
 
@@ -24,15 +25,17 @@ def test_minimal_cli_functionality():
     analysis = Analysis(model="data/ds000003/models/model-001_smdl.json",layout=layout)
     analysis.setup()
 
+    more specifically we want to reimplement this line
+    https://github.com/bids-standard/pybids/blob/b6cd0f6787230ce976a374fbd5fce650865752a3/bids/analysis/analysis.py#L282
     """
-    model = "model-001_smdl.json"
-    bids_dir = "data/ds000003"
-    events_file = "events.tsv"
-    output = sp.check_output(
+    boutiques_dir = Path(__file__).parent.parent / "boutiques"
+    cmd = (
         f"""
-        bids_statsmodels_design_synthesizer.py
-        --bids-dir {bids_dir}
-        --model {model}
-        --events-file {events_file}
-        """.split()
+        bosh
+        {boutiques_dir}/bids-app-bids-statsmodels-design-synthesizer.json
+        -i {boutiques_dir}/invocation.json
+        -e
+        -d
+        """
     )
+    output = sp.check_output(cmd.split())
