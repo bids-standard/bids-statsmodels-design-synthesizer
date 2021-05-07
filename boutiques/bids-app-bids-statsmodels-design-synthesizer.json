@@ -43,18 +43,17 @@
             "type": "File",
             "value-key": "OUTPUT_DIR"
         },
-        {
-            "description": "Level of the analysis that will be performed. Multiple participant level analyses can be run independently (in parallel).",
-            "id": "analysis_level",
-            "name": "Analysis level",
+       {
+            "command-line-flag": "--model",
+            "description": "The name of the model json (this must be placed in the models directory of the bids data directory)",
+            "id": "model",
+            "list": false,
+            "name": "Model",
+            "optional": false,
             "type": "String",
-            "value-choices": [
-                "participant",
-                "group"
-            ],
-            "value-key": "ANALYSIS_LEVEL"
+            "value-key": "MODEL"
         },
-        {
+         {
             "command-line-flag": "--participant_label",
             "description": "The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not include \"sub-\"). If this parameter is not provided all subjects will be analyzed. Multiple participants can be specified with a space separated list.",
             "id": "participant_label",

@@ -34,8 +34,9 @@ def test_minimal_cli_functionality():
 
     cmd = f"""
         bids_statsmodels_design_synthesizer.py
-            --bids-dir {bids_dir}
             --model {model}
+            {bids_dir}
+            output_min_cli_test
          """
     output = sp.check_output(cmd.split())
 
