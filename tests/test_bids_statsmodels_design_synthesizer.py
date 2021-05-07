@@ -29,12 +29,14 @@ def test_minimal_cli_functionality():
     more specifically we want to reimplement this line
     https://github.com/bids-standard/pybids/blob/b6cd0f6787230ce976a374fbd5fce650865752a3/bids/analysis/analysis.py#L282
     """
+    bids_dir =  Path(__file__).parent / "data/ds000003"
+    model = "model-001_smdl.json"
+
     cmd = f"""
         bids_statsmodels_design_synthesizer.py
             --bids-dir {bids_dir}
             --model {model}
-            --events-file {events_file}
-         """.split()
+         """
     output = sp.check_output(cmd.split())
 
 @pytest.mark.xfail(reason="Container not setup for boutiques yet")
