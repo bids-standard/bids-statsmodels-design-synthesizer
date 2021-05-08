@@ -1,0 +1,59 @@
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}, Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v1
+
+    # More info on options: https://github.com/conda-incubator/setup-miniconda
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+        channels: conda-forge
+        auto-update-conda: false
+        auto-activate-base: true
+        show-channel-urls: true
+
+    - name: Install package
+
+      # conda setup requires this special shell
+      shell: bash -l {0}
+      run: |
+        sudo apt-get install -yq git-annex
+        pip install -r requirements_dev.txt
+        pip install -e .
+
+    - name: Setup data
+
+      # conda setup requires this special shell
+      shell: bash -l {0}
+      run: |
+        mkdir tests/data
+        cd tests/data
+        datalad install ///openneuro/ds000003
+        mkdir ds000003/models
+        curl -fsSL https://raw.githubusercontent.com/poldracklab/fitlins/master/examples/models/ds000003/models/model-001_smdl.json > ds000003/models/model-001_smdl.json
+
+    - name: Run tests
+
+      # conda setup requires this special shell
+      shell: bash -l {0}
+      run: |
+        cd tests
+        pytest
+
+
+
