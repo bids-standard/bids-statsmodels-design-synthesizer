@@ -6,6 +6,8 @@ from boutiques.prettyprint import PrettyPrinter
 import json
 from pathlib import Path
 
+from . import transformations as pbt
+
 # The following is a hack to avoid writing cli for now
 descriptor_fname = "bids-app-bids-statsmodels-design-synthesizer.json"
 IO_DESCRIPTOR_JSON = Path(__file__).absolute().parent.parent / "boutiques" / descriptor_fname
