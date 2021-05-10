@@ -81,6 +81,12 @@ def main(user_args=None):
         user_args = p.parser.parse_args()
         user_args = vars(user_args)
 
+
+    # Output file:
+    output_tsv = user_args.get("OUTPUT_TSV","aggregated_statsmodels_design.tsv")
+
+    # Sampling rate of output
+    sampling_rate_out = user_args.get("OUTPUT_SAMPLING_RATE")
     # get specified transformations
     model_file = Path(user_args["MODEL"])
     if not model_file.exists():
@@ -90,7 +96,7 @@ def main(user_args=None):
 
     # Get relevant collection
     coll_df = pd.read_csv(user_args["EVENTS_TSV"], delimiter="\t")
-    RunInfo = namedtuple('RunInfo', ['entities','duration'],)
+    RunInfo = namedtuple('RunInfo', ['entities','duration'])
     run_info = RunInfo(parse_file_entities(user_args["EVENTS_TSV"]),user_args['DURATION'])
     coll = get_events_collection(coll_df,[run_info])
 
@@ -98,8 +104,8 @@ def main(user_args=None):
     colls = transformations.TransformerManager().transform(coll, model_transforms)
 
     # Save colls
-    colls.to_df()
-
+    df_out = colls.to_df(sampling_rate=sampling_rate_out)
+    df_out.to_csv(output_tsv,index=None,sep="\t",na_rep="n/a")
 
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover""Main module."""
