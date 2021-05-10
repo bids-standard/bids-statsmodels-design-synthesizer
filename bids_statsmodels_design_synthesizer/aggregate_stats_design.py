@@ -8,7 +8,7 @@ from pathlib import Path
 
 from bids_statsmodels_design_synthesizer import transformations
 from bids.utils import convert_JSON
-from bids.variables import BIDSVariableCollection, SparseRunVariable
+from bids.variables import BIDSRunVariableCollection, SparseRunVariable
 from bids.layout.utils import parse_file_entities
 import pandas as pd
 import numpy as np
@@ -69,7 +69,7 @@ def get_events_collection(_data,run_info,drop_na=True):
         name=col, data=df, run_info=run_info, source='events')
         colls_output.append(var)
 
-    output = BIDSVariableCollection(colls_output)
+    output = BIDSRunVariableCollection(colls_output)
     return output
 
 
