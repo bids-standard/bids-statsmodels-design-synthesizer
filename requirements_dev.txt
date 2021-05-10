@@ -14,3 +14,4 @@ pytest-runner==5.1
 boutiques
 formulaic
 pandas
+git+https://github.com/bids-standard/pybids@statsmodels
