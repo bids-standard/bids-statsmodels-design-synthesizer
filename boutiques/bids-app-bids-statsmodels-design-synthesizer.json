@@ -1,5 +1,5 @@
 {
-    "command-line": "mkdir -p OUTPUT_DIR; /run.py BIDS_DIR OUTPUT_DIR ANALYSIS_LEVEL PARTICIPANT_LABEL SESSION_LABEL",
+    "command-line": "mkdir -p OUTPUT_DIR; /run.py --output-tsv OUTPUT_TSV --output-sampling-rate OUTPUT_SAMPLING_RATE --model MODEL --events-tsv EVENTS_TSV --duration DURATION",
     "container-image": {
         "image": "bids/bids-statsmodels-design-synthesizer",
         "type": "docker"
@@ -8,25 +8,9 @@
     "groups": [
     ],
     "inputs": [
-        {
-            "description": "The directory with the input dataset formatted according to the BIDS standard.",
-            "id": "bids_dir",
-            "name": "BIDS directory",
-            "optional": false,
-            "type": "File",
-            "value-key": "BIDS_DIR"
-        },
-       {
-            "description": "Directory containing the output of the participants analysis.",
-            "id": "participant_level_analysis_dir",
-            "name": "Participants dir",
-            "optional": true,
-            "type": "File",
-            "value-key": "OUTPUT_DIR"
-        },
        {
             "command-line-flag": "--model",
-            "description": "The name of the model json (this must be placed in the models directory of the bids data directory)",
+            "description": "The path to the model json",
             "id": "model",
             "list": false,
             "name": "Model",
@@ -50,7 +34,7 @@
             "id": "output_tsv",
             "list": false,
             "name": "output_tsv",
-            "optional": true,
+            "optional": false,
             "type": "String",
             "value-key": "OUTPUT_TSV"
         },
@@ -73,63 +57,11 @@
             "optional": false,
             "type": "String",
             "value-key": "DURATION"
-        },
-        {
-            "command-line-flag": "--participant_label",
-            "description": "The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not include \"sub-\"). If this parameter is not provided all subjects will be analyzed. Multiple participants can be specified with a space separated list.",
-            "id": "participant_label",
-            "list": true,
-            "name": "Participant label",
-            "optional": true,
-            "type": "String",
-            "value-key": "PARTICIPANT_LABEL"
-        },
-        {
-            "command-line-flag": "--session_label",
-            "description": "The label(s) of the session(s) that should be analyzed. The label corresponds to ses-<session_label>, an extension of the BIDS spec (so it does not include \"ses-\"). If this parameter is not provided all sessions will be analyzed. Multiple sessions can be specified with a space separated list.",
-            "id": "session_label",
-            "list": true,
-            "name": "Session label",
-            "optional": true,
-            "type": "String",
-            "value-key": "SESSION_LABEL"
         }
     ],
     "invocation-schema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "additionalProperties": false,
-        "allOf": [
-            {
-                "anyOf": [
-                    {
-                        "required": [
-                            "output_dir_name"
-                        ]
-                    },
-                    {
-                        "required": [
-                            "participant_level_analysis_dir"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "dependencies": {
-            "output_dir_name": {
-                "properties": {
-                    "participant_level_analysis_dir": {
-                        "not": {}
-                    }
-                }
-            },
-            "participant_level_analysis_dir": {
-                "properties": {
-                    "output_dir_name": {
-                        "not": {}
-                    }
-                }
-            }
-        },
         "description": "Invocation schema for bids-statsmodels-design-synthesizer.",
         "properties": {
             "analysis_level": {
@@ -162,8 +94,8 @@
             }
         },
         "required": [
-            "bids_dir",
-            "analysis_level"
+            "model",
+            "output-tsv"
         ],
         "title": "bids-statsmodels-design-synthesizer.invocationSchema",
         "type": "object"
@@ -171,11 +103,11 @@
     "name": "bids-statsmodels-design-synthesizer",
     "output-files": [
         {
-            "description": "The directory where the output files should be stored. If you are running a group level analysis, this folder should be prepopulated with the results of the participant level analysis.",
-            "id": "output_dir",
-            "name": "Output directory",
+            "description": "Path to output tsv",
+            "id": "output_tsv",
+            "name": "Output tsv",
             "optional": false,
-            "path-template": "OUTPUT_DIR"
+            "path-template": "OUTPUT_TSV"
         }
     ],
     "schema-version": "0.5",
