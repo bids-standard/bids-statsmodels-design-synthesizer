@@ -9,9 +9,10 @@ from pathlib import Path
 from bids_statsmodels_design_synthesizer import transformations
 from bids.utils import convert_JSON
 from bids.variables import BIDSVariableCollection, SparseRunVariable
-
+from bids.layout.utils import parse_file_entities
 import pandas as pd
 import numpy as np
+from collections import namedtuple
 
 # The following is a hack to avoid writing cli for now
 descriptor_fname = "bids-app-bids-statsmodels-design-synthesizer.json"
@@ -23,11 +24,12 @@ if not IO_DESCRIPTOR_JSON.exists():
 if not IO_DESCRIPTOR_JSON.exists():
     raise EnvironmentError("Cannot find the boutiques descriptor to construct the CLI")
 
-def get_events_collection(_data,drop_na=True):
+def get_events_collection(_data,run_info,drop_na=True):
     """"
     This is an attempt to minimally implement:
     https://github.com/bids-standard/pybids/blob/statsmodels/bids/variables/io.py
     """
+    colls_output = []
     if 'amplitude' in _data.columns:
         if (_data['amplitude'].astype(int) == 1).all() and \
             'trial_type' in _data.columns:
@@ -63,9 +65,8 @@ def get_events_collection(_data,drop_na=True):
 
         if df.empty:
             continue
-
         var = SparseRunVariable(
-        name=col, data=df, run_info=[], source='events')
+        name=col, data=df, run_info=run_info, source='events')
         colls_output.append(var)
 
     output = BIDSVariableCollection(colls_output)
@@ -89,7 +90,9 @@ def main(user_args=None):
 
     # Get relevant collection
     coll_df = pd.read_csv(user_args["EVENTS_TSV"], delimiter="\t")
-    coll = get_events_collection(coll_df)
+    RunInfo = namedtuple('RunInfo', ['entities'])
+    run_info = RunInfo(parse_file_entities(user_args["EVENTS_TSV"]))
+    coll = get_events_collection(coll_df,[run_info])
 
     # perform transformations
     colls = transformations.TransformerManager().transform(coll, model_transforms)
