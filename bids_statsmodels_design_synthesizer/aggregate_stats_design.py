@@ -97,11 +97,8 @@ def main(user_args=None):
     # perform transformations
     colls = transformations.TransformerManager().transform(coll, model_transforms)
 
-    # return early for now
-    return 0
-
     # Save colls
-    raise NotImplementedError
+    colls.to_df()
 
 
 if __name__ == "__main__":
