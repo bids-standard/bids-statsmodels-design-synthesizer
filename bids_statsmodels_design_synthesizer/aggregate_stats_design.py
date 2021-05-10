@@ -90,7 +90,7 @@ def main(user_args=None):
     # get specified transformations
     model_file = Path(user_args["MODEL"])
     if not model_file.exists():
-        model_file = Path(user_args["BIDS_DIR"]) / "models" / user_args["MODEL"]
+        raise ValueError(f"Cannot find{model_file}")
     model = convert_JSON(json.loads(model_file.read_text()))
     model_transforms = model["steps"][0]["transformations"]
 
