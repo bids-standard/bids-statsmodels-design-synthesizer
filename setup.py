@@ -36,7 +36,7 @@ setup(
 #            'bids_statsmodels_design_synthesizer=bids_statsmodels_design_synthesizer.cli:main',
 #        ],
 #    },
-    scripts=["bids_statsmodels_design_synthesizer/bids_statsmodels_design_synthesizer.py"],
+    scripts=["bids_statsmodels_design_synthesizer/aggregate_stats_design.py"],
     install_requires=requirements,
     license="MIT license",
     long_description=readme + '\n\n' + history,
@@ -47,7 +47,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/leej3/bids_statsmodels_design_synthesizer',
+    url='https://github.com/bids-standard/bids_statsmodels_design_synthesizer',
     version='0.1.0',
     zip_safe=False,
 )

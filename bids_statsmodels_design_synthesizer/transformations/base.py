@@ -26,10 +26,13 @@ from .. import transformations as pbt
 try:
     from bids.utils import listify, convert_JSON
     from bids.variables import SparseRunVariable
-    
-    available_module.add('bids')
 except ImportError:
     raise NotImplementedError
+    # TODO: not sure the plan for the following:
+    # available_module.add('bids')
+except ImportError:
+    pass
+    # raise NotImplementedError
 
 
 class Transformation(metaclass=ABCMeta):

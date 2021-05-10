@@ -6,7 +6,7 @@ from boutiques.prettyprint import PrettyPrinter
 import json
 from pathlib import Path
 
-from . import transformations as pbt
+from bids_statsmodels_design_synthesizer import transformations
 
 # The following is a hack to avoid writing cli for now
 descriptor_fname = "bids-app-bids-statsmodels-design-synthesizer.json"

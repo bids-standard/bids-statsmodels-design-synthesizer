@@ -6,14 +6,13 @@ import pytest
 import subprocess as sp
 from pathlib import Path
 
-from bids_statsmodels_design_synthesizer import bids_statsmodels_design_synthesizer
-
+SYNTHESIZER = "aggregate_stats_design.py"
 
 def test_cli_help():
     with pytest.raises(sp.CalledProcessError):
-        output = sp.check_output(["bids_statsmodels_design_synthesizer.py","-h"])
+        output = sp.check_output([SYNTHESIZER,"-h"])
     with pytest.raises(sp.CalledProcessError):
-        output = sp.check_output(["bids_statsmodels_design_synthesizer.py","--non-existent"])
+        output = sp.check_output([SYNTHESIZER,"--non-existent"])
 
 
 def test_minimal_cli_functionality():
@@ -33,7 +32,7 @@ def test_minimal_cli_functionality():
     model = "model-001_smdl.json"
 
     cmd = f"""
-        bids_statsmodels_design_synthesizer.py
+        {SYNTHESIZER}
             --model {model}
             {bids_dir}
             output_min_cli_test
