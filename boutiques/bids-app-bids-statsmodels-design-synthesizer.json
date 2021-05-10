@@ -6,17 +6,6 @@
     },
     "description": "See https://github.com/BIDS-Apps/bids-statsmodels-design-synthesizer",
     "groups": [
-        {
-            "description": "For a participants analysis, an output directory name must be specified. For a group analysis, a directory containing the output of participant-level analyses must be selected. ",
-            "id": "output_directory",
-            "members": [
-                "output_dir_name",
-                "participant_level_analysis_dir"
-            ],
-            "mutually-exclusive": true,
-            "name": "Output Directory",
-            "one-is-required": true
-        }
     ],
     "inputs": [
         {
@@ -27,15 +16,7 @@
             "type": "File",
             "value-key": "BIDS_DIR"
         },
-        {
-            "description": "The directory where the output files should be stored. If you are running a group level analysis, this folder should be prepopulated with the results of the participant level analysis.",
-            "id": "output_dir_name",
-            "name": "Output directory name",
-            "optional": true,
-            "type": "String",
-            "value-key": "OUTPUT_DIR"
-        },
-        {
+       {
             "description": "Directory containing the output of the participants analysis.",
             "id": "participant_level_analysis_dir",
             "name": "Participants dir",
@@ -64,6 +45,26 @@
             "value-key": "EVENTS_TSV"
         },
        {
+            "command-line-flag": "--output-tsv",
+            "description": "The path to the output-tsv that serves as input for model transformations",
+            "id": "output_tsv",
+            "list": false,
+            "name": "output_tsv",
+            "optional": true,
+            "type": "String",
+            "value-key": "OUTPUT_TSV"
+        },
+        {
+            "command-line-flag": "--output-sampling-rate",
+            "description": "Output sampling rate when dense representation is used (float specifying Hz).",
+            "id": "output sampling rate",
+            "list": false,
+            "name": "output sampling rate",
+            "optional": true,
+            "type": "String",
+            "value-key": "OUTPUT_SAMPLING_RATE"
+        },
+        {
             "command-line-flag": "--duration"
             "description": "The duration in seconds of the run",
             "id": "duration",
