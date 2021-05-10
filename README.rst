@@ -29,9 +29,12 @@ Developer setup
 While this tool attempts to have no dependencies, the development dependencies for now can be installed with (very hacky for now):
 ::
    # you may need to brew install git-annex
-   conda create -c conda-forge -n bids-stats-synth python=3 datalad
+   # first step is to install git-annex with something like:
+   brew install git-annex
+   conda create -c conda-forge -n bids-stats-synth python=3
    conda activate bids-stats-synth
    
+   pip install datalad
    pip install -r requirements_dev.txt
    pip install -e .
    
@@ -48,7 +51,17 @@ While this tool attempts to have no dependencies, the development dependencies f
 Features
 --------
 
-* TODO
+Works for at least one test case!
+
+TODO
+----
+- Try to get some transformations working without dependencies.
+- Deal with the absence of dependicies gracefully.
+- Get a single file implementation built with https://github.com/Akrog/pinliner.
+- Drop boutiques.
+- Write up a description of the transformation spec.
+- Translation to formats easy for other implmenters to injest.
+- Maybe a way to stop prior to densifying transformation.
 
 Credits
 -------
