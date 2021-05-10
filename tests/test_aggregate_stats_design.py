@@ -24,6 +24,7 @@ def test_design_aggregation_function():
         "BIDS_DIR": "data/ds000003",
         "OUTPUT_DIR": "outputdir",
         "MODEL": "model-001_smdl.json",
+        "EVENTS_TSV": "data/ds000003/sub-01/func/sub-01_task-rhymejudgment_events.tsv",
         "PARTICIPANT_LABEL": None,
         "SESSION_LABEL": None,
     }

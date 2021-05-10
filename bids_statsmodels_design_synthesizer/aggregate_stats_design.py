@@ -8,6 +8,9 @@ from pathlib import Path
 
 from bids_statsmodels_design_synthesizer import transformations
 from bids.utils import convert_JSON
+from bids.variables import BIDSVariableCollection
+
+import pandas as pd
 
 # The following is a hack to avoid writing cli for now
 descriptor_fname = "bids-app-bids-statsmodels-design-synthesizer.json"
@@ -36,12 +39,14 @@ def main(user_args=None):
     model_transforms = model["steps"][0]["transformations"]
 
     # Get relevant collection
-    coll = NotImplemented
+    coll_df = pd.read_csv(user_args["EVENTS_TSV"], delimiter="\t")
+    coll = BIDSVariableCollection.from_df(coll_df)
+
+    # perform transformations
+    colls = transformations.TransformerManager().transform(coll, model_transforms)
 
     # return early for now
     return 0
-    # perform transformations
-    colls = transformations.Transformermanger().transform(coll, model_transforms)
 
     # Save colls
     raise NotImplementedError
