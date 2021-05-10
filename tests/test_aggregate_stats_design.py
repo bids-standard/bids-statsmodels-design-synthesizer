@@ -33,6 +33,7 @@ def test_design_aggregation_function():
     synth_mod.main(user_args)
 
 
+@pytest.mark.xfail(reason="Use the user arg dict above here instead of having two sets of args defined")
 def test_minimal_cli_functionality():
     """
     We roughly want to implement the equivalent of the following:
