@@ -1,6 +1,5 @@
 {
-    "bids_dir" : "data/ds00003",
-    "output_dir_name" : "bids-statsmodels-design-synthesizer-output",
-    "analysis_level": "participant",
-    "participant_label": ["01"]
+    "model" : "data/ds00003/model/model-001_smdl.json",
+    "output-tsv" : "statsmodel_design_aggregation.tsv",
+    "output-sampling-rate": 10
 }
