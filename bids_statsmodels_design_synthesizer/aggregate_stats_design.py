@@ -8,9 +8,10 @@ from pathlib import Path
 
 from bids_statsmodels_design_synthesizer import transformations
 from bids.utils import convert_JSON
-from bids.variables import BIDSVariableCollection
+from bids.variables import BIDSVariableCollection, SparseRunVariable
 
 import pandas as pd
+import numpy as np
 
 # The following is a hack to avoid writing cli for now
 descriptor_fname = "bids-app-bids-statsmodels-design-synthesizer.json"
@@ -21,6 +22,54 @@ if not IO_DESCRIPTOR_JSON.exists():
     IO_DESCRIPTOR_JSON = Path(__file__).parent / descriptor_fname
 if not IO_DESCRIPTOR_JSON.exists():
     raise EnvironmentError("Cannot find the boutiques descriptor to construct the CLI")
+
+def get_events_collection(_data,drop_na=True):
+    """"
+    This is an attempt to minimally implement:
+    https://github.com/bids-standard/pybids/blob/statsmodels/bids/variables/io.py
+    """
+    if 'amplitude' in _data.columns:
+        if (_data['amplitude'].astype(int) == 1).all() and \
+            'trial_type' in _data.columns:
+            msg = ("Column 'amplitude' with constant value 1 "
+                   "is unnecessary in event files; ignoring it.")
+            _data = _data.drop('amplitude', axis=1)
+        else:
+            msg = ("Column name 'amplitude' is reserved; "
+                   "renaming it to 'amplitude_'.")
+            _data = _data.rename(
+                columns={'amplitude': 'amplitude_'})
+            warnings.warn(msg)
+
+    _data = _data.replace('n/a', np.nan)  # Replace BIDS' n/a
+    _data = _data.apply(pd.to_numeric, errors='ignore')
+
+    _cols = list(set(_data.columns.tolist()) -
+                {'onset', 'duration'})
+
+    # Construct a DataFrame for each extra column
+    for col in _cols:
+        df = _data[['onset', 'duration']].copy()
+        df['amplitude'] = _data[col].values
+
+        # Add in all of the run's entities as new columns for
+        # index
+#        for entity, value in entities.items():
+#            if entity in ALL_ENTITIES:
+#                df[entity] = value
+#
+        if drop_na:
+            df = df.dropna(subset=['amplitude'])
+
+        if df.empty:
+            continue
+
+        var = SparseRunVariable(
+        name=col, data=df, run_info=[], source='events')
+        colls_output.append(var)
+
+    output = BIDSVariableCollection(colls_output)
+    return output
 
 
 def main(user_args=None):
@@ -40,7 +89,7 @@ def main(user_args=None):
 
     # Get relevant collection
     coll_df = pd.read_csv(user_args["EVENTS_TSV"], delimiter="\t")
-    coll = BIDSVariableCollection.from_df(coll_df)
+    coll = get_events_collection(coll_df)
 
     # perform transformations
     colls = transformations.TransformerManager().transform(coll, model_transforms)

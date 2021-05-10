@@ -47,6 +47,7 @@ class Convolve(Transformation):
 
         model = model.lower()
 
+        import pdb;pdb.set_trace()
         df = var.to_df(entities=False)
 
         if isinstance(var, SparseRunVariable):
