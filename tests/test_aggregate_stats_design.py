@@ -27,6 +27,7 @@ def test_design_aggregation_function():
         "EVENTS_TSV": "data/ds000003/sub-01/func/sub-01_task-rhymejudgment_events.tsv",
         "PARTICIPANT_LABEL": None,
         "SESSION_LABEL": None,
+        "DURATION": 320,
     }
 
     synth_mod.main(user_args)
