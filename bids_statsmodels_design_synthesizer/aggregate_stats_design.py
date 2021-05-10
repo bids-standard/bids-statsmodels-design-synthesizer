@@ -90,8 +90,8 @@ def main(user_args=None):
 
     # Get relevant collection
     coll_df = pd.read_csv(user_args["EVENTS_TSV"], delimiter="\t")
-    RunInfo = namedtuple('RunInfo', ['entities'])
-    run_info = RunInfo(parse_file_entities(user_args["EVENTS_TSV"]))
+    RunInfo = namedtuple('RunInfo', ['entities','duration'],)
+    run_info = RunInfo(parse_file_entities(user_args["EVENTS_TSV"]),user_args['DURATION'])
     coll = get_events_collection(coll_df,[run_info])
 
     # perform transformations

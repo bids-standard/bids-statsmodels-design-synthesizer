@@ -63,7 +63,17 @@
             "type": "String",
             "value-key": "EVENTS_TSV"
         },
-          {
+       {
+            "command-line-flag": "--duration"
+            "description": "The duration in seconds of the run",
+            "id": "duration",
+            "list": false,
+            "name": "duration",
+            "optional": false,
+            "type": "String",
+            "value-key": "DURATION"
+        },
+        {
             "command-line-flag": "--participant_label",
             "description": "The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not include \"sub-\"). If this parameter is not provided all subjects will be analyzed. Multiple participants can be specified with a space separated list.",
             "id": "participant_label",
