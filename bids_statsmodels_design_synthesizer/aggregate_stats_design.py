@@ -16,13 +16,14 @@ if not IO_DESCRIPTOR_JSON.exists():
 if not IO_DESCRIPTOR_JSON.exists():
     raise EnvironmentError("Cannot find the boutiques descriptor to construct the CLI")
 
-def main():
+def main(user_args=None):
     """Console script for bids_statsmodels_design_synthesizer."""
-    desc = json.load(open(IO_DESCRIPTOR_JSON))
-    p = PrettyPrinter(desc)
-    user_args = p.parser.parse_args()
-
-
+    if not user_args:
+        desc = json.load(open(IO_DESCRIPTOR_JSON))
+        p = PrettyPrinter(desc)
+        user_args = p.parser.parse_args()
+        user_args = vars(user_args)
+    print(user_args['OUTPUT_DIR'])
     return 0
 
 

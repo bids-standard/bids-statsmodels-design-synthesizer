@@ -7,12 +7,20 @@ import subprocess as sp
 from pathlib import Path
 
 SYNTHESIZER = "aggregate_stats_design.py"
+from bids_statsmodels_design_synthesizer import aggregate_stats_design as synth_mod
+#from bids_statsmodels_design_synthesizer import Path(SYNTHESIZER).stem as synth_mod
 
 def test_cli_help():
     with pytest.raises(sp.CalledProcessError):
         output = sp.check_output([SYNTHESIZER,"-h"])
     with pytest.raises(sp.CalledProcessError):
         output = sp.check_output([SYNTHESIZER,"--non-existent"])
+
+
+def test_design_aggregation_function():
+    user_args = {'BIDS_DIR': 'data/ds000003', 'OUTPUT_DIR': 'outputdir', 'MODEL': 'model-001_smdl.json', 'PARTICIPANT_LABEL': None, 'SESSION_LABEL': None}
+
+    synth_mod.main(user_args)
 
 
 def test_minimal_cli_functionality():
