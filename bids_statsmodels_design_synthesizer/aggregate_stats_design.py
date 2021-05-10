@@ -82,6 +82,16 @@ def main(user_args=None):
         user_args = vars(user_args)
 
 
+    # boutiques optional arg key is not enforced for cli
+    for k in "OUTPUT_TSV DURATION EVENTS_TSV".split():
+        if k not in user_args:
+            raise ValueError(f"Parsed user argument not found: {k}")
+
+    # type is not enforced from boutiques spec
+    for k in "DURATION OUTPUT_SAMPLING_RATE".split():
+        if user_args.get(k) is not None:
+            user_args[k] = float(user_args[k])
+
     # Output file:
     output_tsv = user_args.get("OUTPUT_TSV","aggregated_statsmodels_design.tsv")
 

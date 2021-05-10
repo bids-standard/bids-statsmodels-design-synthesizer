@@ -45,17 +45,17 @@
             "list": false,
             "name": "output sampling rate",
             "optional": true,
-            "type": "String",
+            "type": "float",
             "value-key": "OUTPUT_SAMPLING_RATE"
         },
         {
-            "command-line-flag": "--duration"
+            "command-line-flag": "--duration",
             "description": "The duration in seconds of the run",
             "id": "duration",
             "list": false,
             "name": "duration",
             "optional": false,
-            "type": "String",
+            "type": "float",
             "value-key": "DURATION"
         }
     ],
@@ -64,37 +64,25 @@
         "additionalProperties": false,
         "description": "Invocation schema for bids-statsmodels-design-synthesizer.",
         "properties": {
-            "analysis_level": {
-                "enum": [
-                    "participant",
-                    "group",
-                    "session"
-                ]
-            },
-            "bids_dir": {
+            "events_tsv": {
                 "type": "string"
             },
-            "output_dir_name": {
+            "output_tsv": {
                 "type": "string"
             },
-            "participant_label": {
-                "items": {
-                    "type": "string"
-                },
-                "type": "array"
+            "duration": {
+                "type": "float"
             },
-            "participant_level_analysis_dir": {
+            "output_sampling_rate": {
+                "type": "float"
+            },
+            "model": {
                 "type": "string"
-            },
-            "session_label": {
-                "items": {
-                    "type": "string"
-                },
-                "type": "array"
             }
         },
         "required": [
             "model",
+            "duration",
             "output-tsv"
         ],
         "title": "bids-statsmodels-design-synthesizer.invocationSchema",
@@ -113,3 +101,4 @@
     "schema-version": "0.5",
     "tool-version": "dev"
 }
+
