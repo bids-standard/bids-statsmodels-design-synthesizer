@@ -10,6 +10,12 @@ SYNTHESIZER = "aggregate_stats_design.py"
 from bids_statsmodels_design_synthesizer import aggregate_stats_design as synth_mod
 
 # from bids_statsmodels_design_synthesizer import Path(SYNTHESIZER).stem as synth_mod
+EXAMPLE_USER_ARGS = {
+        "OUTPUT_TSV": "aggregated_design.tsv",
+        "MODEL": "data/ds000003/models/model-001_smdl.json",
+        "EVENTS_TSV": "data/ds000003/sub-01/func/sub-01_task-rhymejudgment_events.tsv",
+        "DURATION": 320,
+    }
 
 
 def test_cli_help():
@@ -20,20 +26,9 @@ def test_cli_help():
 
 
 def test_design_aggregation_function():
-    user_args = {
-        "BIDS_DIR": "data/ds000003",
-        "OUTPUT_DIR": "outputdir",
-        "MODEL": "model-001_smdl.json",
-        "EVENTS_TSV": "data/ds000003/sub-01/func/sub-01_task-rhymejudgment_events.tsv",
-        "PARTICIPANT_LABEL": None,
-        "SESSION_LABEL": None,
-        "DURATION": 320,
-    }
-
-    synth_mod.main(user_args)
+    synth_mod.main(EXAMPLE_USER_ARGS)
 
 
-@pytest.mark.xfail(reason="Use the user arg dict above here instead of having two sets of args defined")
 def test_minimal_cli_functionality():
     """
     We roughly want to implement the equivalent of the following:
@@ -49,13 +44,8 @@ def test_minimal_cli_functionality():
     """
     bids_dir = Path(__file__).parent / "data/ds000003"
     model = "model-001_smdl.json"
-
-    cmd = f"""
-        {SYNTHESIZER}
-            --model {model}
-            {bids_dir}
-            output_min_cli_test
-         """
+    arg_list = " " .join([f"""--{k.lower().replace("_","-")}={v}""" for k,v in EXAMPLE_USER_ARGS.items()])
+    cmd = f"{SYNTHESIZER} {arg_list}"
     output = sp.check_output(cmd.split())
 
 
