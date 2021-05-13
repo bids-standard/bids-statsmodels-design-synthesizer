@@ -14,6 +14,11 @@ bids-statsmodels-design-synthesizer
         :alt: Documentation Status
 
 
+===================================
+ Project migrated !!!!!
+===================================
+
+Efforts migrated to: https://github.com/bids-standard/pybids/pull/724
 
 
 For now this is a prototype to explore the possibility of creating self-contained tool to perform the data aggregation necessary to jump from BIDS events.tsv files/model.json/other time series metadata to a design matrix for downstream implementers (or an appropriate sparse precursor of the design matrix).
